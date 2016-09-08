@@ -62,7 +62,7 @@
         android:layout_above="@+id/activity_main_tabs"
         android:background="@color/divider" />
 
-    <android.support.v4.view.ViewPager
+    <top.defaults.fm.views.NonSwipeableViewPager
         android:id="@+id/activity_main_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

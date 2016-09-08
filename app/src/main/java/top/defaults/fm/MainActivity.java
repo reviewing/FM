@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
+import top.defaults.fm.fragments.TracksFragment;
+import top.defaults.fm.views.NonSwipeableViewPager;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ViewPager viewPager;
+    NonSwipeableViewPager viewPager;
     RadioButton tracksRadioButton;
     RadioButton albumsRadioButton;
     RadioButton fmsRadioButton;
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewPager = (ViewPager) findViewById(R.id.activity_main_pager);
+        viewPager = (NonSwipeableViewPager) findViewById(R.id.activity_main_pager);
         tracksRadioButton = (RadioButton) findViewById(R.id.activity_main_tracks);
         albumsRadioButton = (RadioButton) findViewById(R.id.activity_main_albums);
         fmsRadioButton = (RadioButton) findViewById(R.id.activity_main_fms);
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     @Override
@@ -86,21 +89,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new Fragment();
+                    return new TracksFragment();
                 case 1:
                     return new Fragment();
                 case 2:
                     return new Fragment();
                 case 3:
-                    return new Fragment();
-                case 4:
                     return new Fragment();
             }
             return null;
