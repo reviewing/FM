@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="top.defaults.fm.MainActivity">
+
+    <RadioGroup
+        android:id="@+id/activity_main_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/white_smoke">
+
+        <RadioButton
+            android:id="@+id/activity_main_tracks"
+            style="@style/TabTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:text="@string/tracks"
+            android:textColor="@color/selector_tab" />
+
+        <RadioButton
+            android:id="@+id/activity_main_albums"
+            style="@style/TabTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="@string/albums"
+            android:textColor="@color/selector_tab" />
+
+        <RadioButton
+            android:id="@+id/activity_main_fms"
+            style="@style/TabTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="@string/fms"
+            android:textColor="@color/selector_tab" />
+
+        <RadioButton
+            android:id="@+id/activity_main_columns"
+            style="@style/TabTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="@string/columns"
+            android:textColor="@color/selector_tab" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/activity_main_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:layout_above="@+id/activity_main_tabs"
+        android:background="@color/divider" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_main_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_main_divider" />
+</RelativeLayout>

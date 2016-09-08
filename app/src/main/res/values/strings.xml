@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FM</string>
+    <string name="tracks">声音</string>
+    <string name="albums">专辑</string>
+    <string name="fms">广播</string>
+    <string name="columns">听单</string>
+</resources>
