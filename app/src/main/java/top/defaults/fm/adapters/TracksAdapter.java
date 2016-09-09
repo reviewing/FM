@@ -67,9 +67,9 @@ public class TracksAdapter extends BaseAdapter {
         ViewHolder vh = (ViewHolder) convertView.getTag();
         Track track = (Track) getItem(position);
         vh.rank.setText(String.format(Locale.US, "%d", position + 1));
-        ImageUtils.setImageUri(vh.cover, Uri.parse(track.getCoverUrlLarge()), 80);
+        ImageUtils.setImageUri(vh.cover, Uri.parse(track.getCoverUrlLarge()), context.getResources().getDimensionPixelSize(R.dimen.item_track_cover_size));
         vh.title.setText(String.format(Locale.US, "标题：%s", track.getTrackTitle()));
-        vh.author.setText(String.format(Locale.US, "作者：%s", track.getAnnouncer().getNickname()));
+        vh.author.setText(String.format(Locale.US, "作者：%s", track.getAnnouncer() == null ? "" : track.getAnnouncer().getNickname()));
         return convertView;
     }
 

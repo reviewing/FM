@@ -26,4 +26,38 @@ public class ViewUtils {
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    private static final int ONE_HOUR = 60 * 60 * 1000;
+    private static final int ONE_MIN = 60 * 1000;
+    private static final int ONE_SECOND = 1000;
+
+    public static String formatTime(long ms) {
+        StringBuilder sb = new StringBuilder();
+        int hour = (int) (ms / ONE_HOUR);
+        int min = (int) ((ms % ONE_HOUR) / ONE_MIN);
+        int sec = (int) (ms % ONE_MIN) / ONE_SECOND;
+        if (hour != 0) {
+            if (hour < 10) {
+                sb.append("0").append(hour).append(":");
+            } else {
+                sb.append(hour).append(":");
+            }
+        }
+
+        if (min == 0) {
+            sb.append("00:");
+        } else if (min < 10) {
+            sb.append("0").append(min).append(":");
+        } else {
+            sb.append(min).append(":");
+        }
+        if (sec == 0) {
+            sb.append("00");
+        } else if (sec < 10) {
+            sb.append("0").append(sec);
+        } else {
+            sb.append(sec);
+        }
+        return sb.toString();
+    }
 }

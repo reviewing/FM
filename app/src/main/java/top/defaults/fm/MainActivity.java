@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 import com.ximalaya.ting.android.opensdk.player.appnotification.XmNotificationCreater;
+import com.ximalaya.ting.android.opensdk.player.service.XmPlayerConfig;
 
 import top.defaults.fm.fragments.TracksFragment;
 import top.defaults.fm.utils.ViewUtils;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         viewPager.setOffscreenPageLimit(3);
 
+        XmPlayerConfig.getInstance(this).setBreakpointResume(false);
         playerManager = XmPlayerManager.getInstance(this);
         Notification notification = XmNotificationCreater.getInstanse(this).initNotification(this.getApplicationContext(), MainActivity.class);
         playerManager.init((int) System.currentTimeMillis(), notification);

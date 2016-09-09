@@ -1,7 +1,6 @@
 package top.defaults.fm.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,8 @@ import top.defaults.fm.utils.ViewUtils;
  * @version 1.0, 9/8/16 4:55 PM
  */
 public class TracksFragment extends BaseFragment {
+
+    private PlayerFragment playerFragment;
 
     TracksAdapter adapter;
     TrackHotList trackHotList;
@@ -98,6 +99,9 @@ public class TracksFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        playerFragment = new PlayerFragment();
+        getActivity().getFragmentManager().beginTransaction()
+                .replace(R.id.player_container, playerFragment).commit();
         return inflater.inflate(R.layout.fragment_tracks, container, false);
     }
 

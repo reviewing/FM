@@ -14,4 +14,9 @@
     <dimen name="font_tiny">12sp</dimen>
     <dimen name="font_tinier">11sp</dimen>
     <dimen name="font_micro">9sp</dimen>
+    <dimen name="player_cover_image_size">60dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="normal_margin">10dp</dimen>
+    <dimen name="item_track_rank_width">40dp</dimen>
+    <dimen name="item_track_cover_size">40dp</dimen>
 </resources>
