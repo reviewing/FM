@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/item_track_rank"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="@dimen/font_biggest"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_track_cover"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/item_track_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="标题：《摸金天师》第061章 巾帼英雄"/>
+
+        <TextView
+            android:id="@+id/item_track_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_track_title"
+            android:text="作者：有声的紫禁"/>
+    </RelativeLayout>
+
+</LinearLayout>

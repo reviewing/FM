@@ -2,14 +2,21 @@ package top.defaults.fm;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.Notification;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
+import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
+import com.ximalaya.ting.android.opensdk.player.appnotification.XmNotificationCreater;
 
 import top.defaults.fm.fragments.TracksFragment;
+import top.defaults.fm.utils.ViewUtils;
 import top.defaults.fm.views.NonSwipeableViewPager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -19,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RadioButton albumsRadioButton;
     RadioButton fmsRadioButton;
     RadioButton columnsRadioButton;
+
+    private XmPlayerManager playerManager;
+    private CommonRequest ximalaya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         viewPager.setOffscreenPageLimit(3);
+
+        playerManager = XmPlayerManager.getInstance(this);
+        Notification notification = XmNotificationCreater.getInstanse(this).initNotification(this.getApplicationContext(), MainActivity.class);
+        playerManager.init((int) System.currentTimeMillis(), notification);
+        playerManager.setOnConnectedListerner(new XmPlayerManager.IConnectListener() {
+            @Override
+            public void onConnected() {
+                ximalaya.setDefaultPagesize(20);
+                ViewUtils.showToast(MainActivity.this, "播放器初始化成功");
+            }
+        });
+        ximalaya = CommonRequest.getInstanse();
+        ximalaya.init(this, "74397189fcbe65fa7fe6d14705b8b52c");
     }
 
     @Override
