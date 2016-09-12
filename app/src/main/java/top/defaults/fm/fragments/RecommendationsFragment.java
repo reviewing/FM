@@ -29,9 +29,7 @@ import top.defaults.fm.utils.LogUtils;
  */
 public class RecommendationsFragment extends BaseFragment {
 
-    private ViewPager viewPager;
     private FragmentPagerAdapter adapter;
-    private CommonRequest ximalaya;
     private XmPlayerManager playerManager;
     private IXmPlayerStatusListener playerStatusListener = new IXmPlayerStatusListener() {
         @Override
@@ -103,12 +101,10 @@ public class RecommendationsFragment extends BaseFragment {
     public void onViewCreated(View rootView, Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
 
-        ximalaya = CommonRequest.getInstanse();
-
         playerManager = XmPlayerManager.getInstance(getActivity());
         playerManager.addPlayerStatusListener(playerStatusListener);
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.fragment_recommendations_pager);
+        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.fragment_recommendations_pager);
         adapter = new FragmentPagerAdapter(getFragmentManager());
         viewPager.setAdapter(adapter);
         //noinspection deprecation
@@ -130,7 +126,7 @@ public class RecommendationsFragment extends BaseFragment {
         CommonRequest.getCategories(map, new IDataCallBack<CategoryList>() {
             @Override
             public void onSuccess(CategoryList object) {
-                adapter.setCategoryList(object);
+                adapter.setData(object);
             }
 
             @Override
@@ -156,7 +152,7 @@ public class RecommendationsFragment extends BaseFragment {
             super(manager);
         }
 
-        public void setCategoryList(CategoryList list) {
+        public void setData(CategoryList list) {
             categoryList = list;
             notifyDataSetChanged();
         }
