@@ -19,6 +19,7 @@ import java.util.Locale;
 
 import top.defaults.fm.R;
 import top.defaults.fm.utils.ImageUtils;
+import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong
@@ -64,6 +65,7 @@ public class TracksAdapter extends BaseAdapter {
             vh.cover = (SimpleDraweeView) convertView.findViewById(R.id.item_track_cover);
             vh.title = (TextView) convertView.findViewById(R.id.item_track_title);
             vh.author = (TextView) convertView.findViewById(R.id.item_track_author);
+            vh.duration = (TextView) convertView.findViewById(R.id.item_track_duration);
             convertView.setTag(vh);
         }
 
@@ -73,6 +75,7 @@ public class TracksAdapter extends BaseAdapter {
         ImageUtils.setImageUri(vh.cover, Uri.parse(track.getCoverUrlSmall()), context.getResources().getDimensionPixelSize(R.dimen.item_track_cover_size));
         vh.title.setText(String.format(Locale.US, "标题：%s", track.getTrackTitle()));
         vh.author.setText(String.format(Locale.US, "作者：%s", track.getAnnouncer() == null ? "" : track.getAnnouncer().getNickname()));
+        vh.duration.setText(ViewUtils.formatTime(track.getDuration() * 1000));
 
         Track sound = trackList.getTracks().get(position);
         PlayableModel curr = XmPlayerManager.getInstance(context).getCurrSound();
@@ -89,5 +92,6 @@ public class TracksAdapter extends BaseAdapter {
         SimpleDraweeView cover;
         TextView title;
         TextView author;
+        TextView duration;
     }
 }
