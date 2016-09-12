@@ -9,14 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 import com.ximalaya.ting.android.opensdk.player.appnotification.XmNotificationCreater;
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayerConfig;
 
-import top.defaults.fm.fragments.TracksFragment;
+import top.defaults.fm.fragments.ExploreFragment;
+import top.defaults.fm.fragments.RecommendationsFragment;
 import top.defaults.fm.utils.ViewUtils;
 import top.defaults.fm.views.NonSwipeableViewPager;
 
@@ -25,10 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     NonSwipeableViewPager viewPager;
     RadioButton tracksRadioButton;
     RadioButton albumsRadioButton;
-    RadioButton fmsRadioButton;
-    RadioButton columnsRadioButton;
 
-    private XmPlayerManager playerManager;
     private CommonRequest ximalaya;
 
     @Override
@@ -37,15 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         viewPager = (NonSwipeableViewPager) findViewById(R.id.activity_main_pager);
-        tracksRadioButton = (RadioButton) findViewById(R.id.activity_main_tracks);
-        albumsRadioButton = (RadioButton) findViewById(R.id.activity_main_albums);
-        fmsRadioButton = (RadioButton) findViewById(R.id.activity_main_fms);
-        columnsRadioButton = (RadioButton) findViewById(R.id.activity_main_columns);
+        tracksRadioButton = (RadioButton) findViewById(R.id.activity_main_recommendations);
+        albumsRadioButton = (RadioButton) findViewById(R.id.activity_main_explore);
 
         tracksRadioButton.setOnClickListener(this);
         albumsRadioButton.setOnClickListener(this);
-        fmsRadioButton.setOnClickListener(this);
-        columnsRadioButton.setOnClickListener(this);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getFragmentManager()));
         //noinspection deprecation
@@ -64,10 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(1);
 
         XmPlayerConfig.getInstance(this).setBreakpointResume(false);
-        playerManager = XmPlayerManager.getInstance(this);
+        XmPlayerManager playerManager = XmPlayerManager.getInstance(this);
         Notification notification = XmNotificationCreater.getInstanse(this).initNotification(this.getApplicationContext(), MainActivity.class);
         playerManager.init((int) System.currentTimeMillis(), notification);
         playerManager.setOnConnectedListerner(new XmPlayerManager.IConnectListener() {
@@ -85,21 +78,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int title = R.string.tracks;
         switch (view.getId()) {
-            case R.id.activity_main_tracks:
-                title = R.string.tracks;
+            case R.id.activity_main_recommendations:
+                title = R.string.recommendation;
                 viewPager.setCurrentItem(0, false);
                 break;
-            case R.id.activity_main_albums:
-                title = R.string.albums;
+            case R.id.activity_main_explore:
+                title = R.string.explore;
                 viewPager.setCurrentItem(1, false);
-                break;
-            case R.id.activity_main_fms:
-                title = R.string.fms;
-                viewPager.setCurrentItem(2, false);
-                break;
-            case R.id.activity_main_columns:
-                title = R.string.columns;
-                viewPager.setCurrentItem(3, false);
                 break;
             default:
                 break;
@@ -114,20 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public int getCount() {
-            return 4;
+            return 2;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new TracksFragment();
+                    return new RecommendationsFragment();
                 case 1:
-                    return new Fragment();
-                case 2:
-                    return new Fragment();
-                case 3:
-                    return new Fragment();
+                    return new ExploreFragment();
             }
             return null;
         }
@@ -139,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkTab(int position) {
-        RadioButton[] tabs = {tracksRadioButton, albumsRadioButton, fmsRadioButton, columnsRadioButton};
+        RadioButton[] tabs = {tracksRadioButton, albumsRadioButton};
         tabs[position].setChecked(true);
     }
 }

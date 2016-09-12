@@ -1,6 +1,7 @@
 package top.defaults.fm.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.ximalaya.ting.android.opensdk.model.PlayableModel;
 import com.ximalaya.ting.android.opensdk.model.track.Track;
-import com.ximalaya.ting.android.opensdk.model.track.TrackHotList;
+import com.ximalaya.ting.android.opensdk.model.track.CommonTrackList;
+import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 
 import java.util.Locale;
 
@@ -23,28 +26,28 @@ import top.defaults.fm.utils.ImageUtils;
  */
 public class TracksAdapter extends BaseAdapter {
     private Context context;
-    private TrackHotList trackHotList;
+    private CommonTrackList<Track> trackList;
 
     public TracksAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(TrackHotList trackHotList) {
-        this.trackHotList = trackHotList;
+    public void setData(CommonTrackList<Track> trackList) {
+        this.trackList = trackList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        if (trackHotList == null || trackHotList.getTracks() == null) {
+        if (trackList == null || trackList.getTracks() == null) {
             return 0;
         }
-        return trackHotList.getTracks().size();
+        return trackList.getTracks().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return trackHotList.getTracks().get(position);
+        return trackList.getTracks().get(position);
     }
 
     @Override
@@ -67,9 +70,17 @@ public class TracksAdapter extends BaseAdapter {
         ViewHolder vh = (ViewHolder) convertView.getTag();
         Track track = (Track) getItem(position);
         vh.rank.setText(String.format(Locale.US, "%d", position + 1));
-        ImageUtils.setImageUri(vh.cover, Uri.parse(track.getCoverUrlLarge()), context.getResources().getDimensionPixelSize(R.dimen.item_track_cover_size));
+        ImageUtils.setImageUri(vh.cover, Uri.parse(track.getCoverUrlSmall()), context.getResources().getDimensionPixelSize(R.dimen.item_track_cover_size));
         vh.title.setText(String.format(Locale.US, "标题：%s", track.getTrackTitle()));
         vh.author.setText(String.format(Locale.US, "作者：%s", track.getAnnouncer() == null ? "" : track.getAnnouncer().getNickname()));
+
+        Track sound = trackList.getTracks().get(position);
+        PlayableModel curr = XmPlayerManager.getInstance(context).getCurrSound();
+        if (sound.equals(curr)) {
+            convertView.setBackgroundResource(R.color.light_gray);
+        } else {
+            convertView.setBackgroundColor(Color.WHITE);
+        }
         return convertView;
     }
 

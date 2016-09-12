@@ -29,9 +29,9 @@ import top.defaults.fm.utils.ViewUtils;
  * @author duanhong
  * @version 1.0, 9/8/16 4:55 PM
  */
-public class TracksFragment extends BaseFragment {
+public class HotTracksFragment extends BaseFragment {
 
-    private PlayerFragment playerFragment;
+    public static final String ARGUMENT_CATEGORY_ID = "category.id";
 
     TracksAdapter adapter;
     TrackHotList trackHotList;
@@ -67,7 +67,9 @@ public class TracksFragment extends BaseFragment {
 
         @Override
         public void onSoundSwitch(PlayableModel playableModel, PlayableModel playableModel1) {
-
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+            }
         }
 
         @Override
@@ -99,9 +101,6 @@ public class TracksFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        playerFragment = new PlayerFragment();
-        getActivity().getFragmentManager().beginTransaction()
-                .replace(R.id.player_container, playerFragment).commit();
         return inflater.inflate(R.layout.fragment_tracks, container, false);
     }
 
@@ -161,7 +160,7 @@ public class TracksFragment extends BaseFragment {
         }
         mLoading = true;
         Map<String, String> param = new HashMap<>();
-        param.put(DTransferConstants.CATEGORY_ID, "" + 0);
+        param.put(DTransferConstants.CATEGORY_ID, "" + getArguments().getLong(ARGUMENT_CATEGORY_ID));
         param.put(DTransferConstants.PAGE, "" + pageId);
         param.put(DTransferConstants.PAGE_SIZE, "" + ximalaya.getDefaultPagesize());
         CommonRequest.getHotTracks(param, new IDataCallBack<TrackHotList>() {

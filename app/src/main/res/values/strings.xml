@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FM</string>
+    <string name="recommendation">推荐</string>
+    <string name="explore">发现</string>
     <string name="tracks">声音</string>
     <string name="albums">专辑</string>
     <string name="fms">广播</string>

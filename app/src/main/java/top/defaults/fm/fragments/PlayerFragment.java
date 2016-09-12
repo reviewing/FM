@@ -73,26 +73,26 @@ public class PlayerFragment extends BaseFragment {
             if (model != null) {
                 String title = null;
                 String author = null;
-                String coverSmall = null;
+                String cover = null;
                 if (model instanceof Track) {
                     Track info = (Track) model;
                     title = info.getTrackTitle();
                     author = info.getAnnouncer() == null ? "" : info.getAnnouncer().getNickname();
-                    coverSmall = info.getCoverUrlMiddle();
+                    cover = info.getCoverUrlMiddle();
                 } else if (model instanceof Schedule) {
                     Schedule program = (Schedule) model;
                     author = program.getRelatedProgram().getProgramName();
                     title = program.getRelatedProgram().getProgramName();
-                    coverSmall = program.getRelatedProgram().getBackPicUrl();
+                    cover = program.getRelatedProgram().getBackPicUrl();
                 } else if (model instanceof Radio) {
                     Radio radio = (Radio) model;
                     title = radio.getRadioName();
                     author = radio.getRadioDesc();
-                    coverSmall = radio.getCoverUrlSmall();
+                    cover = radio.getCoverUrlSmall();
                 }
                 vh.title.setText(title);
                 vh.author.setText(author);
-                ImageUtils.setImageUri(vh.cover, Uri.parse(coverSmall), getActivity().getResources().getDimensionPixelSize(R.dimen.player_cover_image_size));
+                ImageUtils.setImageUri(vh.cover, Uri.parse(cover), getActivity().getResources().getDimensionPixelSize(R.dimen.player_cover_image_size));
             }
 
             vh.progress.setEnabled(false);
