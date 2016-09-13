@@ -69,36 +69,9 @@ public class PlayerFragment extends BaseFragment {
         @Override
         public void onSoundSwitch(PlayableModel playableModel, PlayableModel playableModel1) {
             LogUtils.d("onSoundSwitch");
-            PlayableModel model = playerManager.getCurrSound();
-            if (model != null) {
-                String title = null;
-                String author = null;
-                String cover = null;
-                if (model instanceof Track) {
-                    Track info = (Track) model;
-                    title = info.getTrackTitle();
-                    author = info.getAnnouncer() == null ? "" : info.getAnnouncer().getNickname();
-                    cover = info.getCoverUrlMiddle();
-                } else if (model instanceof Schedule) {
-                    Schedule program = (Schedule) model;
-                    author = program.getRelatedProgram().getProgramName();
-                    title = program.getRelatedProgram().getProgramName();
-                    cover = program.getRelatedProgram().getBackPicUrl();
-                } else if (model instanceof Radio) {
-                    Radio radio = (Radio) model;
-                    title = radio.getRadioName();
-                    author = radio.getRadioDesc();
-                    cover = radio.getCoverUrlSmall();
-                }
-                vh.title.setText(title);
-                vh.author.setText(author);
-                ImageUtils.setImageUri(vh.cover, Uri.parse(cover), getActivity().getResources().getDimensionPixelSize(R.dimen.player_cover_image_size));
-            }
-
+            updatePlayerView();
             vh.progress.setEnabled(false);
             vh.progress.setSecondaryProgress(0);
-            vh.previous.setEnabled(playerManager.hasPreSound());
-            vh.next.setEnabled(playerManager.hasNextSound());
         }
 
         @Override
@@ -134,6 +107,38 @@ public class PlayerFragment extends BaseFragment {
             return false;
         }
     };
+
+    private void updatePlayerView() {
+        PlayableModel model = playerManager.getCurrSound();
+        if (model != null) {
+            String title = null;
+            String author = null;
+            String cover = null;
+            if (model instanceof Track) {
+                Track info = (Track) model;
+                title = info.getTrackTitle();
+                author = info.getAnnouncer() == null ? "" : info.getAnnouncer().getNickname();
+                cover = info.getCoverUrlMiddle();
+            } else if (model instanceof Schedule) {
+                Schedule program = (Schedule) model;
+                author = program.getRelatedProgram().getProgramName();
+                title = program.getRelatedProgram().getProgramName();
+                cover = program.getRelatedProgram().getBackPicUrl();
+            } else if (model instanceof Radio) {
+                Radio radio = (Radio) model;
+                title = radio.getRadioName();
+                author = radio.getRadioDesc();
+                cover = radio.getCoverUrlSmall();
+            }
+            vh.title.setText(title);
+            vh.author.setText(author);
+            ImageUtils.setImageUri(vh.cover, Uri.parse(cover), getActivity().getResources().getDimensionPixelSize(R.dimen.player_cover_image_size));
+        }
+
+        vh.previous.setEnabled(playerManager.hasPreSound());
+        vh.next.setEnabled(playerManager.hasNextSound());
+        vh.progress.setEnabled(playerManager.isPlaying());
+    }
 
     @Nullable
     @Override
@@ -201,9 +206,19 @@ public class PlayerFragment extends BaseFragment {
             }
         });
 
-
         playerManager = XmPlayerManager.getInstance(getActivity());
         playerManager.addPlayerStatusListener(playerStatusListener);
+
+        updatePlayerView();
+    }
+
+    @Override
+    public void onDestroyView() {
+        LogUtils.i("onDestroyView");
+        if (playerManager != null) {
+            playerManager.removePlayerStatusListener(playerStatusListener);
+        }
+        super.onDestroyView();
     }
 
     private static class ViewHolder {

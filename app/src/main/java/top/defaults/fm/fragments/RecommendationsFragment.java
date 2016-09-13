@@ -91,10 +91,11 @@ public class RecommendationsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_recommendations, container, false);
         PlayerFragment playerFragment = new PlayerFragment();
         getActivity().getFragmentManager().beginTransaction()
                 .replace(R.id.player_container, playerFragment).commit();
-        return inflater.inflate(R.layout.fragment_recommendations, container, false);
+        return view;
     }
 
     @Override

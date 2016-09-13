@@ -182,4 +182,13 @@ public class AlbumTracksFragment extends BaseFragment {
             }
         });
     }
+
+    @Override
+    public void onDestroyView() {
+        LogUtils.i("onDestroyView");
+        if (playerManager != null) {
+            playerManager.removePlayerStatusListener(playerStatusListener);
+        }
+        super.onDestroyView();
+    }
 }
