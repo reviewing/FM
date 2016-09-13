@@ -77,13 +77,13 @@ public class ExploreFragment extends BaseFragment {
         albumsFragment.setOnAlbumSelectedListener(new AlbumsFragment.OnAlbumSelectedListener() {
             @Override
             public void onSelected(Album album) {
-                AlbumTracksFragment albumTracksFragment = new AlbumTracksFragment();
+                AlbumFragment albumFragment = new AlbumFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(AlbumTracksFragment.ARGUMENT_ALBUM, new Gson().toJson(album));
-                albumTracksFragment.setArguments(bundle);
+                bundle.putString(AlbumFragment.ARGUMENT_ALBUM, new Gson().toJson(album));
+                albumFragment.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.replace(R.id.fragment_explore_container, albumTracksFragment);
+                transaction.replace(R.id.fragment_explore_container, albumFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

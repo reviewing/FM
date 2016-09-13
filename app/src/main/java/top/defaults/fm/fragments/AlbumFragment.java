@@ -32,7 +32,7 @@ import top.defaults.fm.utils.ViewUtils;
  * @author duanhong
  * @version 1.0, 9/13/16 11:48 AM
  */
-public class AlbumTracksFragment extends BaseFragment {
+public class AlbumFragment extends BaseFragment {
 
     public static final String ARGUMENT_ALBUM = "album";
 
@@ -105,7 +105,7 @@ public class AlbumTracksFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_album_tracks, container, false);
+        View view = inflater.inflate(R.layout.fragment_album, container, false);
         PlayerFragment playerFragment = new PlayerFragment();
         getChildFragmentManager().beginTransaction().replace(R.id.player_container, playerFragment).commit();
         return view;
