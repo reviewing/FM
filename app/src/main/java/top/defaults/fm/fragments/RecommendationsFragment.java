@@ -1,9 +1,9 @@
 package top.defaults.fm.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +93,7 @@ public class RecommendationsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommendations, container, false);
         PlayerFragment playerFragment = new PlayerFragment();
-        getActivity().getFragmentManager().beginTransaction()
+        getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.player_container, playerFragment).commit();
         return view;
     }
@@ -106,7 +106,7 @@ public class RecommendationsFragment extends BaseFragment {
         playerManager.addPlayerStatusListener(playerStatusListener);
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.fragment_recommendations_pager);
-        adapter = new FragmentPagerAdapter(getFragmentManager());
+        adapter = new FragmentPagerAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         //noinspection deprecation
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

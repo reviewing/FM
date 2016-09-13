@@ -1,9 +1,9 @@
 package top.defaults.fm;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.Notification;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tracksRadioButton.setOnClickListener(this);
         albumsRadioButton.setOnClickListener(this);
 
-        viewPager.setAdapter(new FragmentPagerAdapter(getFragmentManager()));
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
         //noinspection deprecation
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

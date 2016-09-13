@@ -105,7 +105,10 @@ public class AlbumTracksFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_album_tracks, container, false);
+        View view = inflater.inflate(R.layout.fragment_album_tracks, container, false);
+        PlayerFragment playerFragment = new PlayerFragment();
+        getChildFragmentManager().beginTransaction().replace(R.id.player_container, playerFragment).commit();
+        return view;
     }
 
     @Override

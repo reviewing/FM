@@ -1,9 +1,8 @@
 package top.defaults.fm.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class ExploreFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         categoriesFragment = new CategoriesFragment();
-        getActivity().getFragmentManager().beginTransaction()
+        getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_explore_container, categoriesFragment).commit();
         return inflater.inflate(R.layout.fragment_explore, container, false);
     }
@@ -44,7 +43,7 @@ public class ExploreFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString(TagsFragment.ARGUMENT_CATEGORY, new Gson().toJson(category));
                 tagsFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.replace(R.id.fragment_explore_container, tagsFragment);
                 transaction.addToBackStack(null);
@@ -65,7 +64,7 @@ public class ExploreFragment extends BaseFragment {
                 bundle.putString(AlbumsFragment.ARGUMENT_CATEGORY, new Gson().toJson(category));
                 bundle.putString(AlbumsFragment.ARGUMENT_TAG, new Gson().toJson(tag));
                 albumsFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.replace(R.id.fragment_explore_container, albumsFragment);
                 transaction.addToBackStack(null);
@@ -82,7 +81,7 @@ public class ExploreFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString(AlbumTracksFragment.ARGUMENT_ALBUM, new Gson().toJson(album));
                 albumTracksFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.replace(R.id.fragment_explore_container, albumTracksFragment);
                 transaction.addToBackStack(null);
