@@ -1,9 +1,14 @@
 package top.defaults.fm;
 
 import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,22 +21,41 @@ import com.ximalaya.ting.android.opensdk.player.appnotification.XmNotificationCr
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayerConfig;
 
 import top.defaults.fm.fragments.ExploreFragment;
+import top.defaults.fm.fragments.PlayerFragment;
 import top.defaults.fm.fragments.RecommendationsFragment;
 import top.defaults.fm.utils.ViewUtils;
 import top.defaults.fm.views.NonSwipeableViewPager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String ACTION_REQUEST_PLAYER = "top.defaults.fm.request.player";
+    public static final String EXTRA_SHOW_PLAYER = "top.defaults.fm.show.player";
 
     NonSwipeableViewPager viewPager;
     RadioButton tracksRadioButton;
     RadioButton albumsRadioButton;
 
     private CommonRequest ximalaya;
+    private View playerLayout;
+
+    BroadcastReceiver requestPlayerReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ACTION_REQUEST_PLAYER)) {
+                playerLayout.setVisibility(intent.getBooleanExtra(EXTRA_SHOW_PLAYER, false) ? View.VISIBLE : View.GONE);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        playerLayout = findViewById(R.id.player_container);
+        PlayerFragment playerFragment = new PlayerFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.player_container, playerFragment).commit();
+        LocalBroadcastManager.getInstance(this).registerReceiver(requestPlayerReceiver, new IntentFilter(ACTION_REQUEST_PLAYER));
 
         viewPager = (NonSwipeableViewPager) findViewById(R.id.activity_main_pager);
         tracksRadioButton = (RadioButton) findViewById(R.id.activity_main_recommendations);
@@ -72,6 +96,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         ximalaya = CommonRequest.getInstanse();
         ximalaya.init(this, "74397189fcbe65fa7fe6d14705b8b52c");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(requestPlayerReceiver);
     }
 
     @Override

@@ -19,6 +19,7 @@ import java.util.Map;
 
 import top.defaults.fm.R;
 import top.defaults.fm.adapters.CategoriesAdapter;
+import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong

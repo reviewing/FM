@@ -1,9 +1,13 @@
 package top.defaults.fm.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import java.util.Locale;
+
+import top.defaults.fm.MainActivity;
 
 /**
  * @author duanhong
@@ -11,6 +15,12 @@ import java.util.Locale;
  */
 public class ViewUtils {
     private static Toast toast;
+
+    public static void setPlayerVisibility(Context c, boolean visible) {
+        Intent intent = new Intent(MainActivity.ACTION_REQUEST_PLAYER);
+        intent.putExtra(MainActivity.EXTRA_SHOW_PLAYER, visible);
+        LocalBroadcastManager.getInstance(c).sendBroadcast(intent);
+    }
 
     // Show a short toast shortcut.
     public static void showToast(Context c, int message) {

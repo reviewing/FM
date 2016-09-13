@@ -23,6 +23,7 @@ import java.util.Map;
 
 import top.defaults.fm.R;
 import top.defaults.fm.adapters.TagsAdapter;
+import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong
@@ -53,6 +54,7 @@ public class TagsFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         category = new Gson().fromJson(getArguments().getString(ARGUMENT_CATEGORY), Category.class);
         hint = (TextView)view.findViewById(R.id.fragment_categories_hint);
 

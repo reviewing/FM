@@ -137,7 +137,6 @@ public class PlayerFragment extends BaseFragment {
 
         vh.previous.setEnabled(playerManager.hasPreSound());
         vh.next.setEnabled(playerManager.hasNextSound());
-        vh.progress.setEnabled(playerManager.isPlaying());
     }
 
     @Nullable

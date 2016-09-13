@@ -42,9 +42,15 @@
         android:layout_above="@+id/activity_main_tabs"
         android:background="@color/divider" />
 
+    <FrameLayout
+        android:id="@+id/player_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/activity_main_divider"/>
+
     <top.defaults.fm.views.NonSwipeableViewPager
         android:id="@+id/activity_main_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/activity_main_divider" />
+        android:layout_above="@+id/player_container" />
 </RelativeLayout>

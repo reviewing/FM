@@ -105,16 +105,12 @@ public class AlbumFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_album, container, false);
-        PlayerFragment playerFragment = new PlayerFragment();
-        getChildFragmentManager().beginTransaction().replace(R.id.player_container, playerFragment).commit();
-        return view;
+        return inflater.inflate(R.layout.fragment_album, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         album = new Gson().fromJson(getArguments().getString(ARGUMENT_ALBUM), Album.class);
 
         ListView listView = (ListView) view.findViewById(R.id.fragment_album_tracks_list_view);

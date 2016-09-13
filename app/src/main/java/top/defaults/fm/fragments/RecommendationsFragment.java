@@ -1,9 +1,11 @@
 package top.defaults.fm.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +22,10 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 import java.util.HashMap;
 import java.util.Map;
 
+import top.defaults.fm.MainActivity;
 import top.defaults.fm.R;
 import top.defaults.fm.utils.LogUtils;
+import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong
@@ -91,11 +95,7 @@ public class RecommendationsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recommendations, container, false);
-        PlayerFragment playerFragment = new PlayerFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.player_container, playerFragment).commit();
-        return view;
+        return inflater.inflate(R.layout.fragment_recommendations, container, false);
     }
 
     @Override
@@ -133,7 +133,6 @@ public class RecommendationsFragment extends BaseFragment {
             @Override
             public void onError(int code, String message) {
             }
-
         });
     }
 
