@@ -11,14 +11,15 @@
         android:layout_height="wrap_content"
         android:text="1"
         android:textSize="@dimen/font_biggest"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/normal_margin"/>
+        android:gravity="center"/>
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/item_track_cover"
         android:layout_width="@dimen/item_track_cover_size"
         android:layout_height="@dimen/item_track_cover_size"
-        android:layout_margin="@dimen/normal_margin"/>
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginBottom="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

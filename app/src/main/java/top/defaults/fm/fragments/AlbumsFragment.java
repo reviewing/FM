@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
+import com.ximalaya.ting.android.opensdk.model.album.Album;
 import com.ximalaya.ting.android.opensdk.model.album.AlbumList;
 import com.ximalaya.ting.android.opensdk.model.category.Category;
 import com.ximalaya.ting.android.opensdk.model.tag.Tag;
@@ -43,6 +45,16 @@ public class AlbumsFragment extends BaseFragment {
 
     private boolean mLoading = false;
     private int pageId = 1;
+
+    public interface OnAlbumSelectedListener {
+        void onSelected(Album album);
+    }
+
+    private OnAlbumSelectedListener listener;
+
+    public void setOnAlbumSelectedListener(OnAlbumSelectedListener listener) {
+        this.listener = listener;
+    }
 
     @Nullable
     @Override
@@ -76,6 +88,15 @@ public class AlbumsFragment extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (listener != null) {
+                    listener.onSelected((Album) adapter.getItem(position));
+                }
             }
         });
 

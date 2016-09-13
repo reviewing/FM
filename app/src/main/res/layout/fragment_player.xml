@@ -12,7 +12,7 @@
         android:layout_width="@dimen/player_cover_image_size"
         android:layout_height="@dimen/player_cover_image_size"
         android:layout_marginRight="@dimen/small_margin"
-        app:placeholderImage="@mipmap/ic_launcher"/>
+        app:placeholderImage="@drawable/notification_default"/>
 
     <TextView
         android:id="@+id/fragment_player_author"

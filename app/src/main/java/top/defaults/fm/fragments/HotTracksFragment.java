@@ -33,8 +33,8 @@ public class HotTracksFragment extends BaseFragment {
 
     public static final String ARGUMENT_CATEGORY_ID = "category.id";
 
-    TracksAdapter adapter;
-    TrackHotList trackHotList;
+    private TracksAdapter adapter;
+    private TrackHotList trackHotList;
     private boolean mLoading = false;
     private int pageId = 1;
     private XmPlayerManager playerManager;
@@ -100,14 +100,14 @@ public class HotTracksFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tracks, container, false);
+        return inflater.inflate(R.layout.fragment_hot_tracks, container, false);
     }
 
     @Override
     public void onViewCreated(View rootView, Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.fragment_tracks_list_view);
+        ListView listView = (ListView) rootView.findViewById(R.id.fragment_hot_tracks_list_view);
         adapter = new TracksAdapter(getActivity());
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {

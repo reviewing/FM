@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.ximalaya.ting.android.opensdk.model.album.Album;
 import com.ximalaya.ting.android.opensdk.model.category.Category;
 import com.ximalaya.ting.android.opensdk.model.tag.Tag;
 
@@ -37,7 +38,9 @@ public class ExploreFragment extends BaseFragment {
             @Override
             public void onSelected(Category category) {
                 TagsFragment tagsFragment = new TagsFragment();
+
                 registerTagsFragmentListener(tagsFragment, category);
+
                 Bundle bundle = new Bundle();
                 bundle.putString(TagsFragment.ARGUMENT_CATEGORY, new Gson().toJson(category));
                 tagsFragment.setArguments(bundle);
@@ -55,6 +58,9 @@ public class ExploreFragment extends BaseFragment {
             @Override
             public void onSelected(Tag tag) {
                 AlbumsFragment albumsFragment = new AlbumsFragment();
+
+                registerAlbumsFragmentListener(albumsFragment);
+
                 Bundle bundle = new Bundle();
                 bundle.putString(AlbumsFragment.ARGUMENT_CATEGORY, new Gson().toJson(category));
                 bundle.putString(AlbumsFragment.ARGUMENT_TAG, new Gson().toJson(tag));
@@ -62,6 +68,23 @@ public class ExploreFragment extends BaseFragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.replace(R.id.fragment_explore_container, albumsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+    }
+
+    private void registerAlbumsFragmentListener(AlbumsFragment albumsFragment) {
+        albumsFragment.setOnAlbumSelectedListener(new AlbumsFragment.OnAlbumSelectedListener() {
+            @Override
+            public void onSelected(Album album) {
+                AlbumTracksFragment albumTracksFragment = new AlbumTracksFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(AlbumTracksFragment.ARGUMENT_ALBUM, new Gson().toJson(album));
+                albumTracksFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.replace(R.id.fragment_explore_container, albumTracksFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
