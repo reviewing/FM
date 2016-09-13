@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.ximalaya.ting.android.opensdk.model.category.Category;
+import com.ximalaya.ting.android.opensdk.model.tag.Tag;
 
 import top.defaults.fm.R;
 
@@ -35,12 +37,31 @@ public class ExploreFragment extends BaseFragment {
             @Override
             public void onSelected(Category category) {
                 TagsFragment tagsFragment = new TagsFragment();
+                registerTagsFragmentListener(tagsFragment, category);
                 Bundle bundle = new Bundle();
-                bundle.putLong(TagsFragment.ARGUMENT_CATEGORY_ID, category.getId());
-                bundle.putString(TagsFragment.ARGUMENT_CATEGORY_NAME, category.getCategoryName());
+                bundle.putString(TagsFragment.ARGUMENT_CATEGORY, new Gson().toJson(category));
                 tagsFragment.setArguments(bundle);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.replace(R.id.fragment_explore_container, tagsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+    }
+
+    private void registerTagsFragmentListener(TagsFragment tagsFragment, final Category category) {
+        tagsFragment.setOnTagSelectedListener(new TagsFragment.OnTagSelectedListener() {
+            @Override
+            public void onSelected(Tag tag) {
+                AlbumsFragment albumsFragment = new AlbumsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(AlbumsFragment.ARGUMENT_CATEGORY, new Gson().toJson(category));
+                bundle.putString(AlbumsFragment.ARGUMENT_TAG, new Gson().toJson(tag));
+                albumsFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.replace(R.id.fragment_explore_container, albumsFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

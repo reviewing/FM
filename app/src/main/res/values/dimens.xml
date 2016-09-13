@@ -19,4 +19,5 @@
     <dimen name="normal_margin">10dp</dimen>
     <dimen name="item_track_rank_width">40dp</dimen>
     <dimen name="item_track_cover_size">40dp</dimen>
+    <dimen name="item_album_cover_size">80dp</dimen>
 </resources>

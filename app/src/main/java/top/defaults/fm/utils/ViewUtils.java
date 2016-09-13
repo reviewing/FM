@@ -3,6 +3,8 @@ package top.defaults.fm.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 /**
  * @author duanhong
  * @version 1.0, 9/9/16 11:36 AM
@@ -59,5 +61,15 @@ public class ViewUtils {
             sb.append(sec);
         }
         return sb.toString();
+    }
+
+    public static String formatCount(long count) {
+        if (count > 100000) {
+            String intPart = "" + (count / 10000);
+            String decimal = "" + ((count % 10000) / 1000);
+            return String.format(Locale.US, "%s.%s万", intPart, decimal);
+        }
+
+        return "" + count;
     }
 }

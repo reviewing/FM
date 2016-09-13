@@ -37,7 +37,6 @@ public class HotTracksFragment extends BaseFragment {
     TrackHotList trackHotList;
     private boolean mLoading = false;
     private int pageId = 1;
-    private CommonRequest ximalaya;
     private XmPlayerManager playerManager;
     private IXmPlayerStatusListener playerStatusListener = new IXmPlayerStatusListener() {
         @Override
@@ -107,7 +106,6 @@ public class HotTracksFragment extends BaseFragment {
     @Override
     public void onViewCreated(View rootView, Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
-        ximalaya = CommonRequest.getInstanse();
 
         ListView listView = (ListView) rootView.findViewById(R.id.fragment_tracks_list_view);
         adapter = new TracksAdapter(getActivity());
@@ -121,7 +119,7 @@ public class HotTracksFragment extends BaseFragment {
                     count = count - 5 > 0 ? count - 5 : count - 1;
                     if (view.getLastVisiblePosition() > count && (trackHotList == null || pageId < trackHotList.getTotalPage())) {
                         loadTracks();
-                        ViewUtils.showToast(getActivity(), "正在拉取更多热门声音...");
+                        ViewUtils.showToast(getActivity(), "正在加载更多热门声音...");
                     }
                 }
             }
@@ -162,19 +160,19 @@ public class HotTracksFragment extends BaseFragment {
         Map<String, String> param = new HashMap<>();
         param.put(DTransferConstants.CATEGORY_ID, "" + getArguments().getLong(ARGUMENT_CATEGORY_ID));
         param.put(DTransferConstants.PAGE, "" + pageId);
-        param.put(DTransferConstants.PAGE_SIZE, "" + ximalaya.getDefaultPagesize());
+        param.put(DTransferConstants.PAGE_SIZE, "" + CommonRequest.getInstanse().getDefaultPagesize());
         CommonRequest.getHotTracks(param, new IDataCallBack<TrackHotList>() {
 
             @Override
-            public void onSuccess(TrackHotList object) {
-                LogUtils.d("onSuccess " + (object != null));
-                ViewUtils.showToast(getActivity(), "拉取声音列表成功");
-                if (object != null && object.getTracks() != null && object.getTracks().size() != 0) {
+            public void onSuccess(TrackHotList list) {
+                LogUtils.d("onSuccess " + (list != null));
+                ViewUtils.showToast(getActivity(), "加载声音列表成功");
+                if (list != null && list.getTracks() != null && list.getTracks().size() != 0) {
                     pageId++;
                     if (trackHotList == null) {
-                        trackHotList = object;
+                        trackHotList = list;
                     } else {
-                        trackHotList.getTracks().addAll(object.getTracks());
+                        trackHotList.getTracks().addAll(list.getTracks());
                     }
                     adapter.setData(trackHotList);
                 }

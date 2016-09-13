@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_album_cover"
+        android:layout_width="@dimen/item_album_cover_size"
+        android:layout_height="@dimen/item_album_cover_size"
+        android:layout_margin="@dimen/normal_margin"/>
+
+    <TextView
+        android:id="@+id/item_album_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_toRightOf="@+id/item_album_cover"
+        android:textSize="@dimen/font_big"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="适合安静看书的背景音乐"/>
+
+    <TextView
+        android:id="@+id/item_album_latest_track"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_below="@+id/item_album_title"
+        android:layout_toRightOf="@+id/item_album_cover"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/font_small"
+        android:text="@string/latest_track"/>
+
+    <TextView
+        android:id="@+id/item_album_play_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_below="@+id/item_album_latest_track"
+        android:layout_toRightOf="@+id/item_album_cover"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/font_smaller"
+        android:text="@string/play_count"/>
+
+    <TextView
+        android:id="@+id/item_album_track_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_below="@+id/item_album_latest_track"
+        android:layout_toRightOf="@+id/item_album_play_count"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/font_smaller"
+        android:text="@string/track_count"/>
+</RelativeLayout>

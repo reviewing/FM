@@ -7,5 +7,9 @@
     <string name="fms">广播</string>
     <string name="columns">听单</string>
     <string name="please_select_category">请选择分类：</string>
-    <string name="please_select_tag">当前分类：%s，请选择标签：</string>
+    <string name="please_select_tag">%s > 请选择标签：</string>
+    <string name="please_select_album">%1$s > %2$s > 专辑列表：</string>
+    <string name="track_count">共%d集</string>
+    <string name="play_count">播放量：%s</string>
+    <string name="latest_track">最新：%s</string>
 </resources>
