@@ -1,11 +1,9 @@
 package top.defaults.fm.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +20,8 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 import java.util.HashMap;
 import java.util.Map;
 
-import top.defaults.fm.MainActivity;
 import top.defaults.fm.R;
 import top.defaults.fm.utils.LogUtils;
-import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong

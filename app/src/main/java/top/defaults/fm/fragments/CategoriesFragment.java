@@ -19,7 +19,6 @@ import java.util.Map;
 
 import top.defaults.fm.R;
 import top.defaults.fm.adapters.CategoriesAdapter;
-import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong
@@ -28,6 +27,7 @@ import top.defaults.fm.utils.ViewUtils;
 public class CategoriesFragment extends BaseFragment {
 
     private TextView hint;
+    private CategoryList categoryList;
 
     public interface OnCategorySelectedListener {
         void onSelected(Category category);
@@ -62,18 +62,23 @@ public class CategoriesFragment extends BaseFragment {
             }
         });
 
-        Map<String, String> map = new HashMap<>();
-        CommonRequest.getCategories(map, new IDataCallBack<CategoryList>() {
-            @Override
-            public void onSuccess(CategoryList object) {
-                adapter.setData(object);
-            }
+        if (categoryList == null) {
+            Map<String, String> map = new HashMap<>();
+            CommonRequest.getCategories(map, new IDataCallBack<CategoryList>() {
+                @Override
+                public void onSuccess(CategoryList list) {
+                    categoryList = list;
+                    adapter.setData(list);
+                }
 
-            @Override
-            public void onError(int code, String message) {
-            }
+                @Override
+                public void onError(int code, String message) {
+                }
 
-        });
+            });
+        } else {
+            adapter.setData(categoryList);
+        }
     }
 
     @Override

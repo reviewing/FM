@@ -23,7 +23,6 @@ import java.util.Map;
 
 import top.defaults.fm.R;
 import top.defaults.fm.adapters.TagsAdapter;
-import top.defaults.fm.utils.ViewUtils;
 
 /**
  * @author duanhong
@@ -34,6 +33,7 @@ public class TagsFragment extends BaseFragment {
     private Category category;
 
     private TextView hint;
+    private TagList tagList;
 
     public interface OnTagSelectedListener {
         void onSelected(Tag tag);
@@ -70,20 +70,25 @@ public class TagsFragment extends BaseFragment {
             }
         });
 
-        Map<String, String> map = new HashMap<>();
-        map.put(DTransferConstants.CATEGORY_ID, "" + category.getId());
-        map.put(DTransferConstants.TYPE, "0");
-        CommonRequest.getTags(map, new IDataCallBack<TagList>() {
-            @Override
-            public void onSuccess(TagList object) {
-                adapter.setData(object);
-            }
+        if (tagList == null) {
+            Map<String, String> map = new HashMap<>();
+            map.put(DTransferConstants.CATEGORY_ID, "" + category.getId());
+            map.put(DTransferConstants.TYPE, "0");
+            CommonRequest.getTags(map, new IDataCallBack<TagList>() {
+                @Override
+                public void onSuccess(TagList list) {
+                    tagList = list;
+                    adapter.setData(list);
+                }
 
-            @Override
-            public void onError(int code, String message) {
-            }
+                @Override
+                public void onError(int code, String message) {
+                }
 
-        });
+            });
+        } else {
+            adapter.setData(tagList);
+        }
     }
 
     @Override

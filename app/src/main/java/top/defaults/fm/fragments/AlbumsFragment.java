@@ -100,7 +100,11 @@ public class AlbumsFragment extends BaseFragment {
             }
         });
 
-        loadAlbums();
+        if (albumList == null) {
+            loadAlbums();
+        } else {
+            adapter.setData(albumList);
+        }
     }
 
     @Override
