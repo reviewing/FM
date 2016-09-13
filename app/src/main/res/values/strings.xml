@@ -6,4 +6,6 @@
     <string name="albums">专辑</string>
     <string name="fms">广播</string>
     <string name="columns">听单</string>
+    <string name="please_select_category">请选择分类：</string>
+    <string name="please_select_tag">当前分类：%s，请选择标签：</string>
 </resources>
